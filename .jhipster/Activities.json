@@ -1,0 +1,45 @@
+{
+  "name": "Activities",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "detalle",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "FINISHED,EARRING,NEW"
+    },
+    {
+      "fieldName": "terminationDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "daysLate",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "employee",
+      "otherEntityRelationshipName": "activities",
+      "relationshipName": "employee"
+    }
+  ],
+  "entityTableName": "activities",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": ["activitiesStatus"],
+  "changelogDate": "20221027191648"
+}

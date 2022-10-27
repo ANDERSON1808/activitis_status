@@ -1,0 +1,10 @@
+{
+  "activitiesStatusApp": {
+    "Status": {
+      "null": "",
+      "FINISHED": "FINISHED",
+      "EARRING": "EARRING",
+      "NEW": "NEW"
+    }
+  }
+}

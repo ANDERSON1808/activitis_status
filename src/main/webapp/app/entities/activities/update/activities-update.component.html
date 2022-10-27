@@ -1,0 +1,85 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-activities-heading"
+        data-cy="ActivitiesCreateUpdateHeading"
+        jhiTranslate="activitiesStatusApp.activities.home.createOrEditLabel"
+      >
+        Create or edit a Activities
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="activitiesStatusApp.activities.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="activitiesStatusApp.activities.detalle" for="field_detalle">Detalle</label>
+          <input type="text" class="form-control" name="detalle" id="field_detalle" data-cy="detalle" formControlName="detalle" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="activitiesStatusApp.activities.status" for="field_status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null">{{ 'activitiesStatusApp.Status.null' | translate }}</option>
+            <option value="FINISHED">{{ 'activitiesStatusApp.Status.FINISHED' | translate }}</option>
+            <option value="EARRING">{{ 'activitiesStatusApp.Status.EARRING' | translate }}</option>
+            <option value="NEW">{{ 'activitiesStatusApp.Status.NEW' | translate }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="activitiesStatusApp.activities.terminationDate" for="field_terminationDate"
+            >Termination Date</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_terminationDate"
+              data-cy="terminationDate"
+              type="datetime-local"
+              class="form-control"
+              name="terminationDate"
+              formControlName="terminationDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="activitiesStatusApp.activities.daysLate" for="field_daysLate">Days Late</label>
+          <input type="number" class="form-control" name="daysLate" id="field_daysLate" data-cy="daysLate" formControlName="daysLate" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

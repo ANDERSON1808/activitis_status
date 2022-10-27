@@ -1,0 +1,36 @@
+
+application {
+  config {
+    baseName activitiesStatus,
+    applicationType monolith,
+    packageName com.activity,
+    authenticationType jwt,
+    prodDatabaseType mysql,
+    clientFramework angular
+  }
+  entities *
+}
+
+entity Activities {
+	name String required
+    detalle String
+	status Status
+    terminationDate Instant
+    daysLate Integer
+}
+
+entity Employee {
+	  name String required
+      created Instant
+}
+
+relationship ManyToOne {
+  Employee{activities} to Activities{employee}
+}
+
+enum Status {
+  FINISHED,
+  EARRING,
+  NEW
+}
+    
