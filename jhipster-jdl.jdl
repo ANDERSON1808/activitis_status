@@ -1,4 +1,3 @@
-
 application {
   config {
     baseName activitiesStatus,
@@ -12,20 +11,20 @@ application {
 }
 
 entity Activities {
-	name String required
-    detalle String
-	status Status
-    terminationDate Instant
-    daysLate Integer
+  name String required
+  detalle String
+  status Status
+  terminationDate Instant
+  daysLate Integer
 }
 
 entity Employee {
-	  name String required
-      created Instant
+  name String required
+  created Instant
 }
 
 relationship ManyToOne {
-  Employee{activities} to Activities{employee}
+  Activities{employee} to Employee{activities}
 }
 
 enum Status {
@@ -33,4 +32,3 @@ enum Status {
   EARRING,
   NEW
 }
-    

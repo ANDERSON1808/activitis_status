@@ -4,8 +4,6 @@ import com.activity.domain.enumeration.Status;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -42,10 +40,9 @@ public class Activities implements Serializable {
     @Column(name = "days_late")
     private Integer daysLate;
 
-    @OneToMany(mappedBy = "activities")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @ManyToOne
     @JsonIgnoreProperties(value = { "activities" }, allowSetters = true)
-    private Set<Employee> employees = new HashSet<>();
+    private Employee employee;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -126,35 +123,17 @@ public class Activities implements Serializable {
         this.daysLate = daysLate;
     }
 
-    public Set<Employee> getEmployees() {
-        return this.employees;
+    public Employee getEmployee() {
+        return this.employee;
     }
 
-    public Activities employees(Set<Employee> employees) {
-        this.setEmployees(employees);
+    public Activities employee(Employee employee) {
+        this.setEmployee(employee);
         return this;
     }
 
-    public Activities addEmployee(Employee employee) {
-        this.employees.add(employee);
-        employee.setActivities(this);
-        return this;
-    }
-
-    public Activities removeEmployee(Employee employee) {
-        this.employees.remove(employee);
-        employee.setActivities(null);
-        return this;
-    }
-
-    public void setEmployees(Set<Employee> employees) {
-        if (this.employees != null) {
-            this.employees.forEach(i -> i.setActivities(null));
-        }
-        if (employees != null) {
-            employees.forEach(i -> i.setActivities(this));
-        }
-        this.employees = employees;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

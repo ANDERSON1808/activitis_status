@@ -32,25 +32,27 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
-          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
           <th scope="col"><span jhiTranslate="activitiesStatusApp.activities.name">Name</span></th>
           <th scope="col"><span jhiTranslate="activitiesStatusApp.activities.detalle">Detalle</span></th>
           <th scope="col"><span jhiTranslate="activitiesStatusApp.activities.status">Status</span></th>
           <th scope="col"><span jhiTranslate="activitiesStatusApp.activities.terminationDate">Termination Date</span></th>
           <th scope="col"><span jhiTranslate="activitiesStatusApp.activities.daysLate">Days Late</span></th>
+          <th scope="col"><span jhiTranslate="activitiesStatusApp.activities.employee">Employee</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let activities of activities; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/activities', activities.id, 'view']">{{ activities.id }}</a>
-          </td>
           <td>{{ activities.name }}</td>
           <td>{{ activities.detalle }}</td>
           <td jhiTranslate="{{ 'activitiesStatusApp.Status.' + activities.status }}">{{ activities.status }}</td>
           <td>{{ activities.terminationDate | formatMediumDatetime }}</td>
           <td>{{ activities.daysLate }}</td>
+          <td>
+            <div *ngIf="activities.employee">
+              <a [routerLink]="['/employee', activities.employee?.id, 'view']">{{ activities.employee?.name }}</a>
+            </div>
+          </td>
           <td class="text-right">
             <div class="btn-group">
               <button

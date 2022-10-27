@@ -34,6 +34,12 @@
         <dd>
           <span>{{ activities.daysLate }}</span>
         </dd>
+        <dt><span jhiTranslate="activitiesStatusApp.activities.employee">Employee</span></dt>
+        <dd>
+          <div *ngIf="activities.employee">
+            <a [routerLink]="['/employee', activities.employee?.id, 'view']">{{ activities.employee?.name }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

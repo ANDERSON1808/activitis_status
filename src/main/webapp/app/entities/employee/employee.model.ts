@@ -5,11 +5,11 @@ export interface IEmployee {
   id?: number;
   name?: string;
   created?: dayjs.Dayjs | null;
-  activities?: IActivities | null;
+  activities?: IActivities[] | null;
 }
 
 export class Employee implements IEmployee {
-  constructor(public id?: number, public name?: string, public created?: dayjs.Dayjs | null, public activities?: IActivities | null) {}
+  constructor(public id?: number, public name?: string, public created?: dayjs.Dayjs | null, public activities?: IActivities[] | null) {}
 }
 
 export function getEmployeeIdentifier(employee: IEmployee): number | undefined {

@@ -41,21 +41,6 @@
             />
           </div>
         </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="activitiesStatusApp.employee.activities" for="field_activities">Activities</label>
-          <select class="form-control" id="field_activities" data-cy="activities" name="activities" formControlName="activities">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
-                activitiesOption.id === editForm.get('activities')!.value?.id ? editForm.get('activities')!.value : activitiesOption
-              "
-              *ngFor="let activitiesOption of activitiesSharedCollection; trackBy: trackActivitiesById"
-            >
-              {{ activitiesOption.id }}
-            </option>
-          </select>
-        </div>
       </div>
 
       <div>

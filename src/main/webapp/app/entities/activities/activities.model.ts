@@ -9,7 +9,7 @@ export interface IActivities {
   status?: Status | null;
   terminationDate?: dayjs.Dayjs | null;
   daysLate?: number | null;
-  employees?: IEmployee[] | null;
+  employee?: IEmployee | null;
 }
 
 export class Activities implements IActivities {
@@ -20,7 +20,7 @@ export class Activities implements IActivities {
     public status?: Status | null,
     public terminationDate?: dayjs.Dayjs | null,
     public daysLate?: number | null,
-    public employees?: IEmployee[] | null
+    public employee?: IEmployee | null
   ) {}
 }
 

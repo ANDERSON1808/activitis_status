@@ -13,7 +13,7 @@
   ],
   "relationships": [
     {
-      "relationshipType": "many-to-one",
+      "relationshipType": "one-to-many",
       "otherEntityName": "activities",
       "otherEntityRelationshipName": "employee",
       "relationshipName": "activities"
@@ -28,5 +28,5 @@
   "readOnly": false,
   "embedded": false,
   "applications": ["activitiesStatus"],
-  "changelogDate": "20221027191748"
+  "changelogDate": "20221027193236"
 }

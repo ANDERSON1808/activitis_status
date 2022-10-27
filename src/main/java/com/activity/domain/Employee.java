@@ -3,6 +3,8 @@ package com.activity.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -29,9 +31,10 @@ public class Employee implements Serializable {
     @Column(name = "created")
     private Instant created;
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "employees" }, allowSetters = true)
-    private Activities activities;
+    @OneToMany(mappedBy = "employee")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "employee" }, allowSetters = true)
+    private Set<Activities> activities = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -73,16 +76,34 @@ public class Employee implements Serializable {
         this.created = created;
     }
 
-    public Activities getActivities() {
+    public Set<Activities> getActivities() {
         return this.activities;
     }
 
-    public Employee activities(Activities activities) {
+    public Employee activities(Set<Activities> activities) {
         this.setActivities(activities);
         return this;
     }
 
-    public void setActivities(Activities activities) {
+    public Employee addActivities(Activities activities) {
+        this.activities.add(activities);
+        activities.setEmployee(this);
+        return this;
+    }
+
+    public Employee removeActivities(Activities activities) {
+        this.activities.remove(activities);
+        activities.setEmployee(null);
+        return this;
+    }
+
+    public void setActivities(Set<Activities> activities) {
+        if (this.activities != null) {
+            this.activities.forEach(i -> i.setEmployee(null));
+        }
+        if (activities != null) {
+            activities.forEach(i -> i.setEmployee(this));
+        }
         this.activities = activities;
     }
 

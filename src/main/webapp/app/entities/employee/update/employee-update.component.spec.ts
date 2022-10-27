@@ -9,8 +9,6 @@ import { of, Subject } from 'rxjs';
 
 import { EmployeeService } from '../service/employee.service';
 import { IEmployee, Employee } from '../employee.model';
-import { IActivities } from 'app/entities/activities/activities.model';
-import { ActivitiesService } from 'app/entities/activities/service/activities.service';
 
 import { EmployeeUpdateComponent } from './employee-update.component';
 
@@ -20,7 +18,6 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<EmployeeUpdateComponent>;
     let activatedRoute: ActivatedRoute;
     let employeeService: EmployeeService;
-    let activitiesService: ActivitiesService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -34,41 +31,18 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(EmployeeUpdateComponent);
       activatedRoute = TestBed.inject(ActivatedRoute);
       employeeService = TestBed.inject(EmployeeService);
-      activitiesService = TestBed.inject(ActivitiesService);
 
       comp = fixture.componentInstance;
     });
 
     describe('ngOnInit', () => {
-      it('Should call Activities query and add missing value', () => {
-        const employee: IEmployee = { id: 456 };
-        const activities: IActivities = { id: 92287 };
-        employee.activities = activities;
-
-        const activitiesCollection: IActivities[] = [{ id: 96824 }];
-        jest.spyOn(activitiesService, 'query').mockReturnValue(of(new HttpResponse({ body: activitiesCollection })));
-        const additionalActivities = [activities];
-        const expectedCollection: IActivities[] = [...additionalActivities, ...activitiesCollection];
-        jest.spyOn(activitiesService, 'addActivitiesToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-        activatedRoute.data = of({ employee });
-        comp.ngOnInit();
-
-        expect(activitiesService.query).toHaveBeenCalled();
-        expect(activitiesService.addActivitiesToCollectionIfMissing).toHaveBeenCalledWith(activitiesCollection, ...additionalActivities);
-        expect(comp.activitiesSharedCollection).toEqual(expectedCollection);
-      });
-
       it('Should update editForm', () => {
         const employee: IEmployee = { id: 456 };
-        const activities: IActivities = { id: 49527 };
-        employee.activities = activities;
 
         activatedRoute.data = of({ employee });
         comp.ngOnInit();
 
         expect(comp.editForm.value).toEqual(expect.objectContaining(employee));
-        expect(comp.activitiesSharedCollection).toContain(activities);
       });
     });
 
@@ -133,16 +107,6 @@ describe('Component Tests', () => {
         expect(employeeService.update).toHaveBeenCalledWith(employee);
         expect(comp.isSaving).toEqual(false);
         expect(comp.previousState).not.toHaveBeenCalled();
-      });
-    });
-
-    describe('Tracking relationships identifiers', () => {
-      describe('trackActivitiesById', () => {
-        it('Should return tracked Activities primary key', () => {
-          const entity = { id: 123 };
-          const trackResult = comp.trackActivitiesById(0, entity);
-          expect(trackResult).toEqual(entity.id);
-        });
       });
     });
   });
